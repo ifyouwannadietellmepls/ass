@@ -1,0 +1,69 @@
+﻿<Window x:Class="BibleoRY.Admin"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BibleoRY"
+        mc:Ignorable="d"
+        Title="Admin" Height="1080" Width="1920" Loaded="Window_Loaded">
+    <Window.Resources>
+        <local:DataSet1 x:Key="dataSet1"/>
+        <CollectionViewSource x:Key="employeeViewSource" Source="{Binding employee, Source={StaticResource dataSet1}}"/>
+        <CollectionViewSource x:Key="subscription_ViewSource" Source="{Binding subscription_, Source={StaticResource dataSet1}}"/>
+        <CollectionViewSource x:Key="bookViewSource" Source="{Binding book, Source={StaticResource dataSet1}}"/>
+    </Window.Resources>
+    <Grid DataContext="{StaticResource employeeViewSource}">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="373*"/>
+            <RowDefinition Height="678*"/>
+        </Grid.RowDefinitions>
+        <DataGrid x:Name="employeeDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding}" HorizontalAlignment="Left" VerticalAlignment="Top"  RowDetailsVisibilityMode="VisibleWhenSelected" Height="683" Margin="10,33,0,0" Width="580" Grid.RowSpan="2" >
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="id_employeeColumn" Binding="{Binding id_employee}" Header="id employee" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="nameeColumn" Binding="{Binding namee}" Header="namee" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="surnameeColumn" Binding="{Binding surnamee}" Header="surnamee" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="patronymiceColumn" Binding="{Binding patronymice}" Header="patronymice" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="e_mailColumn" Binding="{Binding e_mail}" Header="e mail" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="loginColumn" Binding="{Binding login}" Header="login" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="passwordeColumn" Binding="{Binding passworde}" Header="passworde" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="role_idColumn" Binding="{Binding role_id}" Header="role id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="prepod_idColumn" Binding="{Binding prepod_id}" Header="prepod id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="student_idColumn" Binding="{Binding student_id}" Header="student id" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="subscription_idColumn" Binding="{Binding subscription_id}" Header="subscription id" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <DataGrid x:Name="subscription_DataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource subscription_ViewSource}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="622,33,0,0" RowDetailsVisibilityMode="VisibleWhenSelected" Height="621" Width="335" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="id_subscription_Column" Binding="{Binding id_subscription_}" Header="id subscription" Width="SizeToHeader"/>
+                <DataGridTemplateColumn x:Name="date_endingColumn" Header="date ending" Width="SizeToHeader">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding date_ending, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn x:Name="statusColumn" Binding="{Binding status}" Header="status" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="number_subscription_Column" Binding="{Binding number_subscription_}" Header="number subscription" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button x:Name="DeletePers_Copy4" Content="Создать абонемент&#xD;&#xA;" HorizontalAlignment="Left" Margin="622,286.333,0,0" VerticalAlignment="Top" Width="335" Click="DeletePers_Copy4_Click" Height="57" Grid.Row="1" />
+        <DataGrid x:Name="bookDataGrid" AutoGenerateColumns="False" EnableRowVirtualization="True" ItemsSource="{Binding Source={StaticResource bookViewSource}}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="979,33,0,0" RowDetailsVisibilityMode="VisibleWhenSelected" Height="683" Width="243" Grid.RowSpan="2">
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="id_bookColumn" Binding="{Binding id_book}" Header="id book" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="name_bookColumn" Binding="{Binding name_book}" Header="name book" Width="SizeToHeader"/>
+                <DataGridTextColumn x:Name="number_bookColumn" Binding="{Binding number_book}" Header="number book" Width="SizeToHeader"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label HorizontalAlignment="Left" Height="25" Margin="1241,100,0,0" Content="Количество" VerticalAlignment="Top" Width="155" FontSize="14" FontFamily="Times New Roman"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="1250,131,0,0" TextWrapping="Wrap" x:Name="Name__Copy30" VerticalAlignment="Top" Width="116"/>
+        <Button x:Name="InsertPers_Copy7" Content="Добавить" HorizontalAlignment="Left" Margin="1251,169,0,0" VerticalAlignment="Top" Width="115" Click="InsertPers_Copy7_Click" Height="21"  />
+        <Button x:Name="UpdatePers_Copy7" Content="Изменить" HorizontalAlignment="Left" Margin="1251,197,0,0" VerticalAlignment="Top" Width="115" Click="UpdatePers_Copy7_Click" Height="21" />
+        <Button x:Name="DeletePers_Copy7" Content="Удалить" HorizontalAlignment="Left" Margin="1251,223,0,0" VerticalAlignment="Top" Width="115" Click="DeletePers_Copy7_Click" Height="21" />
+        <Label HorizontalAlignment="Left" Height="25" Margin="1241,41,0,0" Content="Наименование" VerticalAlignment="Top" Width="155" FontSize="14" FontFamily="Times New Roman"/>
+        <TextBox HorizontalAlignment="Left" Height="23" Margin="1250,72,0,0" TextWrapping="Wrap" x:Name="Name__Copy" VerticalAlignment="Top" Width="116"/>
+
+    </Grid>
+</Window>
