@@ -1,0 +1,80 @@
+const doit = (job) => {
+    $(document).ready(job);
+};
+
+
+doit(() => {
+    $('nav .toggle-btn input').click(() => {
+        $('nav .menu').toggleClass('active');
+        $('body').toggleClass('overhidden');
+    });
+});
+
+doit(() => {
+    const heads_swiper = new Swiper('.heads .swiper', {
+        autoplay: {
+          delay: 0,
+        },
+        slidesPerView: 6,
+        spaceBetween: 30,
+        loop: true,
+        easing: 'ease',
+        breakpoints: {
+            320: {
+              slidesPerView: 1,
+              spaceBetween: 30
+            },
+            520: {
+              slidesPerView: 2,
+            },
+            768: {
+              slidesPerView: 4,
+            },
+            1024: {
+                slidesPerView: 6,
+            },
+        }
+    });
+
+    $('.heads .slider_wrapper').css({
+        'width': `calc(100% + ${$('.heads .swiper .swiper-slide').width() + 30}px)`,
+        'transform': `translateX(-${$('.heads .swiper .swiper-slide').width() / 2}px)`
+    });
+});
+
+doit(() => {
+    document.querySelectorAll('.faq .item').forEach(one => {
+        console.log($(one).find('.content').height());
+        $(one).find('.content').height($(one).find('.content').height());
+        $(one).find('.content').addClass('closed');
+    });
+
+    $('.faq .item').click(e => {
+        if($(e.currentTarget).hasClass('active')) {
+            $('.faq .item').removeClass('active');
+            $('.faq .item .content').addClass('closed');
+
+        } else {
+            $('.faq .item').removeClass('active');
+            $('.faq .item .content').addClass('closed');
+            $(e.currentTarget).find('.content').removeClass('closed');
+            $(e.currentTarget).addClass('active');
+        }
+    });
+});
+
+doit(() => {
+    // Scroll to anchor
+    let scrollToAnchor = () => {
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    }
+
+    scrollToAnchor();
+});
